@@ -103,12 +103,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
         function showQRCode(invoice, options)
         {
             var button = options.target.querySelector("button.wp-lnp-btn");
-            button.outerHTML = `<div class="wp-lnp-qrcode">
+            button.outerHTML = `<div style="text-align:center"><img src="/wp-content/plugins/lightning-checkout/templates/images/countdown.gif'; ?>" width="90"></div><div class="wp-lnp-qrcode">
             <a href="lightning:${invoice.payment_request
             }"><img src="https://chart.googleapis.com/chart?&chld=M|0&cht=qr&chs=200x200&chl=${invoice.payment_request
             }"></a>
             <br />
-            <a href="lightning:${invoice.payment_request}">${invoice.payment_request.substr(0, 36)}...</a><span onClick="navigator.clipboard.writeText('${invoice.payment_request}');" class="wp-lnp-copy">${LN_Paywall_Copy}</span>
+            <a href="lightning:${invoice.payment_request}">${invoice.payment_request.substr(0, 12)}...</a><span onClick="navigator.clipboard.writeText('${invoice.payment_request}');" class="wp-lnp-copy">${LN_Paywall_Copy}</span>
             </div>`;
         }
 
