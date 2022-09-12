@@ -31,9 +31,9 @@ use BitWasp\Bitcoin\Address\PayToPubKeyHashAddress;
 use BitWasp\Bitcoin\Address\ScriptHashAddress;
 use BitWasp\Bitcoin\Address\SegwitAddress;
 use BitWasp\Bitcoin\Bitcoin;
-use BitWasp\Bitcoin\Crypto\EcAdapter\Adapter\EcAdapterInterface;
-use BitWasp\Bitcoin\Crypto\EcAdapter\Impl\PhpEcc\Serializer\Signature\CompactSignatureSerializer;
-use BitWasp\Bitcoin\Crypto\EcAdapter\Key\PublicKeyInterface;
+//use BitWasp\Bitcoin\Crypto\EcAdapter\Adapter\EcAdapterInterface;
+//use BitWasp\Bitcoin\Crypto\EcAdapter\Impl\PhpEcc\Serializer\Signature\CompactSignatureSerializer;
+//use BitWasp\Bitcoin\Crypto\EcAdapter\Key\PublicKeyInterface;
 use BitWasp\Bitcoin\Crypto\Hash;
 use BitWasp\Bitcoin\Network\NetworkInterface;
 use BitWasp\Bitcoin\Network\Networks\Bitcoin as BitcoinMainnet;
@@ -61,7 +61,7 @@ use Jorijn\Bitcoin\Bolt11\Exception\UnrecoverableSignatureException;
  *
  * This class is a PHP port from pre-existing BOLT11 libraries.
  */
-class Bolt11PaymentRequestDecoderWithoutSatoshis
+class Bolt11PaymentRequestDecoderWithoutSatoshisAndSignature
 {
     public const DIVISORS = [
         'm' => '1000.0000000000',
@@ -95,9 +95,9 @@ class Bolt11PaymentRequestDecoderWithoutSatoshis
     /** @var EcAdapterInterface */
     protected $ecAdapter;
 
-    public function __construct(EcAdapterInterface $ecAdapter = null)
+    public function __construct($ecAdapter = null)
     {
-        $this->ecAdapter = $ecAdapter ?? Bitcoin::getEcAdapter();
+        $this->ecAdapter =  null; //$ecAdapter ?? Bitcoin::getEcAdapter();
         $this->tagNames = array_flip(self::TAG_CODES);
         $this->initializeTagParsers();
     }
@@ -192,7 +192,7 @@ class Bolt11PaymentRequestDecoderWithoutSatoshis
         );
 
         $payReqHash = Hash::sha256($toSign);
-        $sigPubkey = $this->extractVerifyPublicKey($recoveryID, $signatureBuffer, $payReqHash, $tags);
+        // $sigPubkey = $this->extractVerifyPublicKey($recoveryID, $signatureBuffer, $payReqHash, $tags);
 
         $finalResult = [
             'prefix' => $prefix,
@@ -201,8 +201,8 @@ class Bolt11PaymentRequestDecoderWithoutSatoshis
             'milli_satoshis' => $milliSatoshis,
             'timestamp' => $timestamp,
             'timestamp_string' => $timestampString,
-            'payee_node_key' => $sigPubkey->getHex(),
-            'signature' => $signatureBuffer->getHex(),
+            'payee_node_key' => null, //$sigPubkey->getHex(),
+            'signature' => null, //$signatureBuffer->getHex(),
             'recovery_flag' => $recoveryID,
             'tags' => $tags,
             '_payment_request_hash' => $payReqHash->getHex(),
@@ -393,6 +393,7 @@ class Bolt11PaymentRequestDecoderWithoutSatoshis
         return null;
     }
 
+    /*
     protected function extractVerifyPublicKey(
         int $recoveryID,
         BufferInterface $signatureBuffer,
@@ -420,6 +421,7 @@ class Bolt11PaymentRequestDecoderWithoutSatoshis
 
         return $sigPubkey;
     }
+    */
 
     protected function wordsToHex(array $words): string
     {
