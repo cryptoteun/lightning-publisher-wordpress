@@ -84,7 +84,7 @@ class LNP_InvoicesController extends \WP_REST_Controller
         $memo = preg_replace('/[^\w_ ]/', '', $memo);
 
         $invoice_params = [
-            'memo' => $memo . '(' . $amount . $currency . ')',
+            'memo' => $memo,
             'value' => $amount, // in sats
             'expiry' => 1800,
             'private' => true

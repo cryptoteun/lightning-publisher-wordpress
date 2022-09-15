@@ -86,7 +86,7 @@ class LNP_PaywallController extends \WP_REST_Controller
         $memo = substr($memo, 0, 64);
         $memo = preg_replace('/[^\w_ ]/', '', $memo);
         $invoice_params = [
-            'memo' => $memo,
+            'memo' => $memo . '(' . $paywall_options['amount']/100 . ' ' . $paywall_options['currency'] . ')',
             'value' => $amount, // in sats
             'expiry' => 1800,
             'private' => true
