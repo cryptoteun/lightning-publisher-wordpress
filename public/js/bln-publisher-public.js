@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
             <br />
             <a href="lightning:${invoice.payment_request}">${invoice.payment_request.substr(0, 12)}...</a><span onClick="navigator.clipboard.writeText('${invoice.payment_request}');" class="wp-lnp-copy">${LN_Paywall_Copy}</span>
             </div>
-            <div style="text-align:center; padding-top: 10px"><small>Lightning payment processed by</small><br><img src="/wp-content/plugins/bitcoin-lightning-publisher/assets/img/logo-lightningcheckout.png" height="25">
+            <div style="text-align:center; padding-top: 10px"><small>Lightning Payment Processor</small><br><img src="/wp-content/plugins/bitcoin-lightning-publisher/assets/img/logo-lightningcheckout.png" height="25">
             </div>`;
         }
 
