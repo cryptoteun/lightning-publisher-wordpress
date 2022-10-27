@@ -88,7 +88,8 @@ class BLN_Publisher_Public
     public function add_module_script_type_attribute($tag, $handle, $src)
     {
         // if it is a module add type module to the tag
-        if (str_contains($handle, 'module')) {
+        // we need this for the simple-boost button
+        if (str_contains($handle, 'bln-js-modules')) {
             $tag = '<script type="module" src="' . esc_url( $src ) . '"></script>';
         }
         return $tag;
@@ -101,6 +102,11 @@ class BLN_Publisher_Public
     {
         $paywall = new BLN_Publisher_Paywall($this->plugin, [ "content" => $content, "post_id" => get_the_ID()]);
         return $paywall->get_content();
+    }
+
+    public function shortcodes_to_exempt_from_wptexturize()
+    {
+      return array("lnpaywall", "ln_v4v", "ln_simple_boost");
     }
 
     public function add_lnurl_to_rss_item_filter()
@@ -166,7 +172,7 @@ class BLN_Publisher_Public
 
     public function render_webln_v4v_simple_boost($attributes, $content)
     {
-        wp_enqueue_script('module/simple-boost.bundled.js', plugin_dir_url(__FILE__) . 'js/module/simple-boost.bundled.js', $this->plugin->get_version(), true);
+        wp_enqueue_script('bln-js-modules/simple-boost.bundled.js', plugin_dir_url(__FILE__) . 'js/bln-js-modules/simple-boost.bundled.js', $this->plugin->get_version(), true);
 
         $lnurl = get_rest_url(null, '/lnp-alby/v1/lnurlp');
         $attributes = shortcode_atts( array(
@@ -174,7 +180,7 @@ class BLN_Publisher_Public
             'currency' => 'btc',
             'class' => 'gumroad',
         ), $attributes, 'ln_simple_boost' );
-        $amount = esc_attr(intval($attributes['amount'])/100);
+        $amount = esc_attr($attributes['currency'] == 'btc' ? intval($attributes['amount']) : intval($attributes['amount'])/100);
         $currency = strtolower($attributes['currency']) == 'btc' ? 'sats' : esc_attr($attributes['currency']);
         $klass = esc_attr($attributes['class']);
         return '<simple-boost

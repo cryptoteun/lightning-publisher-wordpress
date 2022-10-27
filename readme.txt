@@ -4,7 +4,7 @@ Tags: bitcoin, lightning, payment, donation, paywall, rss, micropayments
 Requires at least: 5.6.0
 Tested up to: 6.0.1
 Requires PHP: 7.4
-Stable tag: 1.2.0
+Stable tag: 1.2.3
 License: GPLv3
 Donate link: https://getalby.com
 Contributors: getalby
@@ -91,6 +91,16 @@ For more advanced, custom Lightning integrations you can use the REST API to cre
 [Release notes on GitHub](https://github.com/getAlby/lightning-publisher-wordpress/releases)
 
 == Upgrade Notice ==
+
+= 1.2.3 =
+Fix conflict with Elementor plugin (better scope bln-js-modules filter)
+
+= 1.2.2 =
+Update dependencies with some performance improvements
+
+= 1.2.1 =
+Fully delete options on plugin uninstall
+Check Lightning Addresses on wallet configuration
 
 = 1.2.0 =
 Include shortcodes for Value 4 Value and donation buttons

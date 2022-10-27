@@ -62,7 +62,7 @@ class LNP_ConnectionPage extends LNP_SettingsPage
                 'type'        => 'url',
                 'name'        => 'lnd_address',
                 'label'       => __('REST Address (with port)', 'lnp-alby'),
-                'description' => __('e.g. https://127.0.0.1:8080 - or <a href="#" id="load_from_lndconnect">click here to load details from a lndconnect connection</a>', 'lnp-alby'),
+                'description' => __('e.g. https://127.0.0.1:8080', 'lnp-alby'),
             ),
         );
 
@@ -159,7 +159,7 @@ class LNP_ConnectionPage extends LNP_SettingsPage
             'field'   => array(
                 'name'        => 'btcpay_apikey',
                 'label'       => __('API Key', 'lnp-alby'),
-                'description' => __('BTCPay Api Key. (requires permission to "Create lightning invoice" and "Get invoice"', 'lnp-alby'),
+                'description' => __('BTCPay Api Key. - requires permission to "Create lightning invoice" (btcpay.store.cancreatelightninginvoice)', 'lnp-alby'),
             ),
         );
 

@@ -359,11 +359,14 @@ class BLN_Publisher
 
         if (!empty($this->general_options['add_v4v_rss_tag'])) {
             $this->loader->add_action('rss2_head', $this->plugin_public, 'add_v4v_rss_tag');
-            $this->loader->add_action('rss2_ns', $this->plugin_public, 'add_v4v_rss_ns_tag');
+            if (empty($this->general_options['disable_add_v4v_rss_ns_tag']) ) {
+                $this->loader->add_action('rss2_ns', $this->plugin_public, 'add_v4v_rss_ns_tag');
+            }
         }
 
         // Apply Paywall to the content
-        $this->loader->add_filter('the_content', $this->plugin_public, 'ln_paywall_filter', 9); // 9 is the priority. this needs to run before wptexturize which changes for example the quotes. (10 is the default)
+        $this->loader->add_filter('no_texturize_shortcodes', $this->plugin_public, 'shortcodes_to_exempt_from_wptexturize', 9); // try to avoid wptexturize from texturizing the short codes
+        $this->loader->add_filter('the_content', $this->plugin_public, 'ln_paywall_filter', 999999999); // then number is the priority. Elementor uses a high number and does loads of things in the `the_content` filter so we need to run afterwards
     }
 
     /**
