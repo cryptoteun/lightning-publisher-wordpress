@@ -78,10 +78,10 @@ class LNP_PaywallController extends \WP_REST_Controller
         if ($currency != 'btc') {
             $exchange_rate = $plugin->get_current_exchange_rate($currency);
             $amount = $plugin->convert_to_sats($amount, $currency, $exchange_rate);
-            $invoice_memo = $memo . ' (' . $paywall_options['amount']/100 . ' ' . $paywall_options['currency'] . ')'
+            $invoice_memo = $memo . ' (' . $paywall_options['amount']/100 . ' ' . $paywall_options['currency'] . ')';
         } else {
             $exchange_rate = 1;
-            $invoice_memo = $memo . ' (' . $paywall_options['amount'] . ' sat)'
+            $invoice_memo = $memo . ' (' . $paywall_options['amount'] . ' sat)';
         }
 
 
