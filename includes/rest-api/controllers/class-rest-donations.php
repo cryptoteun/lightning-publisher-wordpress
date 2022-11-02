@@ -167,7 +167,7 @@ class LNP_DonationsController extends \WP_REST_Controller
         $memo = preg_replace('/[^\w_ ]/', '', $memo);
 
         $invoice_params = array(
-            'memo'    => $memo,
+            'memo'    => $memo . ' (' . $amount . ' sat)',
             'value'   => $amount, // in sats
             'expiry'  => 1800,
             'private' => true
